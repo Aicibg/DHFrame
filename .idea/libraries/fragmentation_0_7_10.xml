@@ -2,6 +2,7 @@
   <library name="fragmentation-0.7.10">
     <ANNOTATIONS>
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/me.yokeyword/fragmentation/0.7.10/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/me.yokeyword/fragmentation/0.7.10/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/me.yokeyword/fragmentation/0.7.10/res" />
@@ -9,6 +10,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.yokeyword/fragmentation/0.7.10/74af0e5680093270cf77155ab291bb911a27662/fragmentation-0.7.10-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.yokeyword/fragmentation/0.7.10/74af0e5680093270cf77155ab291bb911a27662/fragmentation-0.7.10-sources.jar!/" />
     </SOURCES>
   </library>
