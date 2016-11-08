@@ -18,7 +18,9 @@ package com.tengda.databindingframe.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+
 import com.tengda.databindingframe.BR;
+
 import java.util.List;
 
 /**
