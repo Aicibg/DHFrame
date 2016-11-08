@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -10,11 +14,74 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            // No debug config
+        }
+
         release {
+            storeFile file("../app/tengda.jks")
+            storePassword rootProject.ext.stroeKey.storePassword
+            keyAlias rootProject.ext.stroeKey.keyAlias
+            keyPassword rootProject.ext.stroeKey.keyPassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled true
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "app_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+
+    productFlavors{
+        GooglePlay{
+            manifestPlaceholders=[UMENG_CHANNEL_VALUE:"GooglePlay"]
+        }
+        Baidu{
+            manifestPlaceholders=[UMENG_CHANNEL_VALUE: "Baidu"]
+        }
+        Wandoujia{
+            manifestPlaceholders=[UMENG_CHANNEL_VALUE: "Wandoujia"]
+        }
+        Xiaomi{
+            manifestPlaceholders=[UMENG_CHANNEL_VALUE: "Xiaomi"]
         }
     }
 }
@@ -24,4 +91,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile project(':framelibrary')
+    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    compile 'com.orhanobut:logger:1.15'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

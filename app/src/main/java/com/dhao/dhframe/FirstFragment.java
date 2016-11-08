@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.dhao.framelibrary.base.BaseAppCompatFragment;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by DongHao on 2016/9/20.
@@ -21,5 +22,15 @@ public class FirstFragment extends BaseAppCompatFragment{
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("FirstFragment");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("FirstFragment");
+    }
 }

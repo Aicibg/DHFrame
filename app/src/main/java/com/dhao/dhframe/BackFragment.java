@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dhao.framelibrary.base.BaseSwipeBackCompatFragment;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by DongHao on 2016/9/20.
@@ -28,5 +29,16 @@ public class BackFragment extends BaseSwipeBackCompatFragment{
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("FirstFragment");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("FirstFragment");
+    }
 
 }
