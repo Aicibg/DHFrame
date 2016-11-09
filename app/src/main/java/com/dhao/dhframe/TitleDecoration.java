@@ -34,7 +34,7 @@ public class TitleDecoration extends RecyclerView.ItemDecoration {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(DensityUtils.dp2px(context,22));
         mBounds = new Rect();
-        mTitleHeight=DensityUtils.dp2px(context,30);
+        mTitleHeight=DensityUtils.dp2px(mContext,30);
     }
 
     @Override
