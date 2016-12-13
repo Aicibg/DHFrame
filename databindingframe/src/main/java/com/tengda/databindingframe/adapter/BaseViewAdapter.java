@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.tengda.databindingframe.BR;
+
 import java.util.List;
 
 /**
@@ -28,7 +29,6 @@ import java.util.List;
  * @author markzhai on 16/8/25
  */
 public abstract class  BaseViewAdapter<T> extends RecyclerView.Adapter<BindingViewHolder> {
-
     protected final LayoutInflater mLayoutInflater;
 
     protected List<T> mCollection;
