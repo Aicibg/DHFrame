@@ -18,6 +18,7 @@ package com.tengda.databindingframe.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import com.tengda.databindingframe.BR;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
  *
  * @author markzhai on 16/8/25
  */
-public abstract class BaseViewAdapter<T> extends RecyclerView.Adapter<BindingViewHolder> {
+public abstract class  BaseViewAdapter<T> extends RecyclerView.Adapter<BindingViewHolder> {
 
     protected final LayoutInflater mLayoutInflater;
 
@@ -48,13 +49,18 @@ public abstract class BaseViewAdapter<T> extends RecyclerView.Adapter<BindingVie
 
     @Override
     public void onBindViewHolder(BindingViewHolder holder, int position) {
-        final Object item = mCollection.get(position);
+        Object item = mCollection.get(position);
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().setVariable(BR.presenter, getPresenter());
         holder.getBinding().executePendingBindings();
         if (mDecorator != null) {
             mDecorator.decorator(holder, position, getItemViewType(position));
         }
+    }
+
+    @Override
+    public BindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
     }
 
     @Override

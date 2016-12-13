@@ -17,6 +17,7 @@ package com.tengda.databindingframe.adapter;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 /**
  * @author markzhai on 16/3/18
@@ -24,11 +25,18 @@ import android.support.v7.widget.RecyclerView;
  */
 public class BindingViewHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
 
-    protected final T mBinding;
+    protected T mBinding;
+    public View itemView;
 
     public BindingViewHolder(T binding) {
         super(binding.getRoot());
+        itemView=binding.getRoot();
         mBinding = binding;
+    }
+
+    public BindingViewHolder(View itemView){
+        super(itemView);
+        this.itemView=itemView;
     }
 
     public T getBinding() {

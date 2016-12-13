@@ -1,7 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SwipeBackLayout">
-        <item name="edge_size">0dp</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+        <style name="style_progressbar">
+            <item name="android:indeterminateDrawable">@drawable/view_more_progress</item>
+            <item name="android:minWidth">35dip</item>
+            <item name="android:maxWidth">35dip</item>
+            <item name="android:minHeight">35dip</item>
+            <item name="android:maxHeight">35dip</item>
+        </style>
+
+    <style name="style_refresh">
+        <item name="android:indeterminateDrawable">@drawable/view_refresh</item>
+        <item name="android:minWidth">40dip</item>
+        <item name="android:maxWidth">40dip</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:maxHeight">40dip</item>
+    </style>
+
 </resources>

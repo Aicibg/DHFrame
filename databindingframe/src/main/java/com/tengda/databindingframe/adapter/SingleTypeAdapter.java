@@ -19,7 +19,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ import java.util.List;
  * @author markzhai on 16/8/22
  */
 public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
-
+    private final Object mLock = new Object();
     protected int mLayoutRes;
 
     public interface Presenter<T> extends BaseViewAdapter.Presenter {
@@ -74,8 +73,20 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
     }
 
     public void addAll(List<T> viewModels) {
-        mCollection.addAll(viewModels);
-        notifyDataSetChanged();
+        synchronized (mLock) {
+            if (mCollection != null) {
+                mCollection.addAll(viewModels);
+            }
+            if (getItemCount() - viewModels.size() != 0) {
+                notifyItemRangeInserted(getItemCount() - viewModels.size(), viewModels.size());
+            } else {
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    public List<T> getData() {
+        return mCollection;
     }
 
     @LayoutRes

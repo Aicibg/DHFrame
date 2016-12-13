@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SwipeBackLayout -->
-    <declare-styleable name="SwipeBackLayout">
-        <attr name="edge_size" format="dimension"/>
-        <attr name="edge_flag">
-            <enum name="left" value="0"/>
-            <enum name="right" value="1"/>
-            <enum name="bottom" value="2"/>
-            <enum name="all" value="3"/>
-        </attr>
-        <attr name="shadow_left" format="reference"/>
-        <attr name="shadow_right" format="reference"/>
-        <attr name="shadow_bottom" format="reference"/>
+
+    <declare-styleable name="TDRecyclerView">
+        <attr name="push_resistance" format="float"/>
+        <attr name="over_resistance" format="float"/>
+        <attr name="duration" format="integer"/>
+        <attr name="pull_eable" format="boolean"/>
+        <attr name="push_able" format="boolean"/>
+        <attr name="over_scroll" format="boolean"/>
+        <attr name="layout_color" format="color"/>
+        <attr name="contentview_color" format="color"/>
+        <attr name="inner_view" format="string"/>
+        <attr name="loaddata_scrolleable" format="boolean"/>
+        <attr name="interpolator" format="reference"/>
     </declare-styleable>
 
-    <attr name="SwipeBackLayoutStyle" format="reference"/>
 </resources>
