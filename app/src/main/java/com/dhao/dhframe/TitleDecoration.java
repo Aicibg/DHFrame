@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.dhao.framelibrary.utils.DensityUtils;
@@ -21,7 +22,7 @@ public class TitleDecoration extends RecyclerView.ItemDecoration {
     private List<CityBean> mData;
     private Paint mPaint;
     private Rect mBounds;
-    private int mTitleHeight = 30;
+    private int mTitleHeight = 0;
     private Context mContext;
 
     public TitleDecoration(Context context, List<CityBean> data) {
@@ -31,6 +32,7 @@ public class TitleDecoration extends RecyclerView.ItemDecoration {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(DensityUtils.dp2px(context,22));
         mBounds = new Rect();
+        mTitleHeight=DensityUtils.dp2px(mContext,30);
     }
 
     @Override
@@ -78,8 +80,8 @@ public class TitleDecoration extends RecyclerView.ItemDecoration {
     private void drawTitleArea(Canvas c, int left, int right, View child,
                                RecyclerView.LayoutParams params, int position) {
         mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.FILL);
-        c.drawRect(left,child.getTop()-params.topMargin-mTitleHeight,right,params.topMargin,mPaint);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        c.drawRect(left,child.getTop()-params.topMargin-mTitleHeight,right,child.getTop()-params.topMargin,mPaint);
         mPaint.setColor(Color.BLUE);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.getTextBounds(mData.get(position).getTag(),0,mData.get(position).getTag().length(),mBounds);
@@ -90,5 +92,17 @@ public class TitleDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
+        int position=((LinearLayoutManager)parent.getLayoutManager()).findFirstVisibleItemPosition();
+        String tag=mData.get(position).getTag();
+        View child=parent.findViewHolderForLayoutPosition(position).itemView;
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        c.drawRect(parent.getPaddingLeft(),parent.getPaddingTop(),parent.getRight()-parent.getPaddingRight(),
+                parent.getPaddingTop()+mTitleHeight,mPaint);
+        mPaint.getTextBounds(tag,0,tag.length(),mBounds);
+        mPaint.setColor(Color.BLUE);
+        mPaint.setStyle(Paint.Style.STROKE);
+        c.drawText(tag,child.getPaddingLeft(),parent.getPaddingTop()+
+                mTitleHeight-(mTitleHeight/2-mBounds.height()/2),mPaint);
     }
 }
