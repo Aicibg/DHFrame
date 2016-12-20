@@ -57,20 +57,6 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
         return mCollection.size();
     }
 
-    public void add(T viewModel) {
-        mCollection.add(viewModel);
-        notifyDataSetChanged();
-    }
-
-    public void add(int position, T viewModel) {
-        mCollection.add(position, viewModel);
-        notifyDataSetChanged();
-    }
-
-    public void set(List<T> viewModels) {
-        mCollection.clear();
-        addAll(viewModels);
-    }
 
     public void addAll(List<T> viewModels) {
         synchronized (mLock) {
@@ -85,9 +71,7 @@ public class SingleTypeAdapter<T> extends BaseViewAdapter<T> {
         }
     }
 
-    public List<T> getData() {
-        return mCollection;
-    }
+
 
     @LayoutRes
     protected int getLayoutRes() {

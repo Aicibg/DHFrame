@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.tengda.databindingframe.BR;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,14 +69,100 @@ public abstract class  BaseViewAdapter<T> extends RecyclerView.Adapter<BindingVi
         return mCollection.size();
     }
 
-    public void remove(int position) {
-        mCollection.remove(position);
-        notifyItemRemoved(position);
-    }
-
     public void clear() {
         mCollection.clear();
         notifyDataSetChanged();
+    }
+
+    /**
+     * 刷新数据，初始化数据
+     *
+     * @param list
+     */
+    public void setDatas(List<T> list) {
+        if (this.mCollection != null) {
+            if (null != list) {
+                List<T> temp = new ArrayList<>();
+                temp.addAll(list);
+                this.mCollection.clear();
+                this.mCollection.addAll(temp);
+            } else {
+                this.mCollection.clear();
+            }
+        } else {
+            this.mCollection = list;
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 删除一条数据
+     * 会自动定向刷新
+     *
+     * @param i
+     */
+    public void remove(int i) {
+        if (null != mCollection && mCollection.size() > i && i > -1) {
+            mCollection.remove(i);
+            notifyItemRemoved(i);
+        }
+    }
+
+    /**
+     * 添加一条数据 至队尾
+     * 会自动定向刷新
+     *
+     * @param data
+     */
+    public void add(T data) {
+        if (data != null && mCollection != null) {
+            mCollection.add(data);
+            notifyItemInserted(mCollection.size());
+        }
+    }
+
+    /**
+     * 在指定位置添加一条数据
+     * 会自动定向刷新
+     * <p>
+     * 如果指定位置越界，则添加在队尾
+     *
+     * @param position
+     * @param data
+     */
+    public void add(int position, T data) {
+        if (data != null && mCollection != null) {
+            if (mCollection.size() > position && position > -1) {
+                mCollection.add(position, data);
+                notifyItemInserted(position);
+            } else {
+                add(data);
+            }
+        }
+    }
+
+
+    /**
+     * 加载更多数据
+     *
+     * @param list
+     */
+    public void addDatas(List<T> list) {
+        if (null != list) {
+            List<T> temp = new ArrayList<>();
+            temp.addAll(list);
+            if (this.mCollection != null) {
+                this.mCollection.addAll(temp);
+            } else {
+                this.mCollection = temp;
+            }
+            notifyDataSetChanged();
+        }
+
+    }
+
+    public List<T> getData() {
+        return mCollection;
     }
 
     public void setDecorator(Decorator decorator) {
